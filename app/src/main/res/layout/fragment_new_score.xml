@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="match_parent"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+
+                android:text="Mi"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:id="@+id/textView" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+
+                android:text="Vi"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                />
+        </TableRow>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:src="@drawable/thin_line"
+            />
+        <TextView
+            android:text="Bela"
+            android:textAlignment="center"
+            />
+
+        <TableRow
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                >
+
+                <CheckBox
+                    android:id="@+id/bela_we"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="left"
+                    android:gravity="center"
+                    android:layout_marginStart="65dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+                <CheckBox
+                    android:id="@+id/bela_they"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="center"
+                    android:layout_marginEnd="53dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/edit_new_zvanje_we"
+                android:layout_weight="1"
+                android:hint="zvanje"
+                android:textAlignment="center"
+                android:inputType="number"
+                />
+            <EditText
+                android:id="@+id/edit_new_zvanje_they"
+                android:layout_weight="1"
+                android:hint="zvanje"
+                android:textAlignment="center"
+                android:inputType="number"
+                />
+
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/edit_new_score_we"
+                android:layout_weight="1"
+                android:hint="bodovi"
+                android:textAlignment="center"
+                android:inputType="number"
+                />
+            <EditText
+                android:id="@+id/edit_new_score_they"
+                android:layout_weight="1"
+                android:hint="bodovi"
+                android:textAlignment="center"
+                android:inputType="number"
+                />
+
+        </TableRow>
+
+        <TableRow>
+            <RelativeLayout
+                android:layout_width="match_parent">
+
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/btn_confirm"
+                android:background="@drawable/roundedbutton"
+                android:layout_width="@dimen/rounded_button_dimensions"
+                android:layout_height="@dimen/rounded_button_dimensions"
+                android:src="@mipmap/icon_confirm"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_reject"
+                android:background="@drawable/roundedbutton"
+                android:layout_width="@dimen/rounded_button_dimensions"
+                android:layout_height="@dimen/rounded_button_dimensions"
+                android:layout_marginLeft="70dp"
+                android:src="@mipmap/icon_reject"
+                />
+
+        </TableRow>
+    </TableLayout>
+
+
+
+</RelativeLayout>
