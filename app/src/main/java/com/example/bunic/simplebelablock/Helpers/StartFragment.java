@@ -1,9 +1,11 @@
-package com.example.bunic.simplebelablock;
+package com.example.bunic.simplebelablock.Helpers;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+
+import com.example.bunic.simplebelablock.R;
 
 /**
  * Created by Jurica Bunić on 7.2.2017..

@@ -8,32 +8,73 @@ public class Score_Calculations {
 
     private static Score_Calculations insance;
 
-    private Score score1;
-    private Score score2;
-    int maxScore = 162;
 
-    private Score_Calculations(Score score1, Score score2){
-        this.score1 = score1;
-        this.score2 = score2;
+    private Player we;
+    private Player they;
+    private Score scoreWe;
+    private Score scoreThey;
+
+    private static final int BASE_SCORE=162;
+    private int maxScore;
+
+    private Score_Calculations(Player we, Player they){
+        this.we = we;
+        this.we = we;
+
+        this.scoreWe = we.getScore();
+        this.scoreThey = they.getScore();
     }
 
-    public static Score_Calculations getInstance(Score score1, Score score2){
+    public static Score_Calculations getInstance(Player we, Player they){
         if(insance == null) {
-            insance = new Score_Calculations(score1, score2);
+            insance = new Score_Calculations(we, they);
         }
         return insance;
     }
 
-    public int maxScore(){
-        maxScore = 162;
-        if((score1.getZvanje()>0) || (score2.getZvanje()>0)){
-            maxScore = 162 + score1.getZvanje()+score2.getZvanje();
-        }
+    public int getMaxScore(){
+        maxScore = BASE_SCORE + scoreWe.getZvanje() + scoreThey.getZvanje();
         return maxScore;
     }
 
-    private void roundResult(){
-        int scoreWe;
-        int scoreThey;
+    private int whoesTurn(){
+        if(we.getTurn()==1){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    public void roundResult(){
+        // if 1 then it is our turn, else it's their turn
+        maxScore = getMaxScore();
+        int turn = whoesTurn();
+        switch (turn){
+            case 1:
+                if(scoreWe.getCurrentScore()+scoreWe.getZvanje()<=(maxScore/2)){
+                    scoreWe.addToList(0);
+                    scoreThey.addToList(maxScore);
+                }else if(scoreWe.getCurrentScore()+scoreWe.getZvanje()>(maxScore/2)){
+                    scoreWe.addToList(scoreWe.getCurrentScore()+scoreWe.getZvanje());
+                    scoreThey.addToList(scoreThey.getCurrentScore()+scoreThey.getZvanje());
+                }
+                break;
+            default:
+                if(scoreThey.getCurrentScore()+scoreThey.getZvanje()<=(maxScore/2)){
+                    scoreThey.addToList(0);
+                    scoreWe.addToList(maxScore);
+                }else if(scoreThey.getCurrentScore()+scoreThey.getZvanje()>(maxScore/2)){
+                    scoreThey.addToList(scoreThey.getCurrentScore()+scoreThey.getZvanje());
+                    scoreWe.addToList(scoreWe.getCurrentScore()+scoreWe.getZvanje());
+                }
+        }
+        endTurn();
+    }
+
+    private void endTurn(){
+        scoreWe.setZvanje(0);
+        scoreWe.setCurrentScore(0);
+        scoreThey.setZvanje(0);
+        scoreThey.setCurrentScore(0);
     }
 }

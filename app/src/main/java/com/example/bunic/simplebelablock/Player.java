@@ -12,6 +12,9 @@ import android.os.Parcelable;
 public class Player implements Parcelable{
     private String name;
     private Score score;
+    private int Turn;
+
+
 
     public Player(String name, Score score) {
         this.name = name;
@@ -20,6 +23,13 @@ public class Player implements Parcelable{
 
     public Score getScore() {
         return score;
+    }
+
+    public int getTurn() {
+        return Turn;
+    }
+    public void setTurn(int turn) {
+        Turn = turn;
     }
 
     //Parcel------------------------------------------

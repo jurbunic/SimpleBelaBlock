@@ -22,13 +22,17 @@ public class Score implements Parcelable{
         previousScores = new ArrayList<>();
     }
 
-    public void addScore(int currentScore){
-        setCurrentScore(currentScore);
-        previousScores.add(getCurrentScore());
-        setTotalScore(this.totalScore+getCurrentScore());
+    public void addScore(int score, int zvanje){
+        setZvanje(zvanje);
+        setCurrentScore(score);
+        //previousScores.add(getCurrentScore());
+        //setTotalScore(this.totalScore+getCurrentScore());
     }
 
-
+    public void addToList(int score){
+        previousScores.add(score);
+        setTotalScore(totalScore+score);
+    }
 
     public List<Integer> getPreviousScores() {
         return previousScores;

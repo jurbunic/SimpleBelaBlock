@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +34,12 @@ public class Fragment_Add_Score extends Fragment {
     @BindView(R.id.edit_new_zvanje_they)
     EditText addZvanjeThey;
 
+
+    @BindView(R.id.txt_header_add_score_we)
+    TextView headerWe;
+    @BindView(R.id.txt_header_add_score_they)
+    TextView headerThey;
+
     Player we;
     Player they;
 
@@ -42,6 +49,7 @@ public class Fragment_Add_Score extends Fragment {
     Score_Calculations score_calculations;
 
     FragmentManager mFragmentManager;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +68,20 @@ public class Fragment_Add_Score extends Fragment {
         ourScore = we.getScore();
         thereScore = they.getScore();
 
-        score_calculations = Score_Calculations.getInstance(ourScore,thereScore);
+        score_calculations = Score_Calculations.getInstance(we,they);
+
+        if(ourScore.getPreviousScores().size()%2==0){
+            headerWe.setTextColor(getResources().getColor(R.color.colorPrimary));
+            we.setTurn(1);
+            headerThey.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+            they.setTurn(0);
+        }else {
+            headerWe.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+            we.setTurn(0);
+            headerThey.setTextColor(getResources().getColor(R.color.colorPrimary));
+            they.setTurn(1);
+        }
+
 
     }
     @OnFocusChange(R.id.edit_new_zvanje_we)
@@ -68,9 +89,11 @@ public class Fragment_Add_Score extends Fragment {
         if(addZvanjeWe.getText().toString().equals("")){
             addZvanjeWe.setText("0");
         }else {
-            ourScore.setZvanje(Integer.parseInt(addZvanjeWe.getText().toString()));
             addZvanjeThey.setText("0");
         }
+        ourScore.setZvanje(Integer.parseInt(addZvanjeWe.getText().toString()));
+        thereScore.setZvanje(0);
+        //maxScore = score_calculations.getMaxScore();
 
     }
 
@@ -79,28 +102,28 @@ public class Fragment_Add_Score extends Fragment {
         if(addZvanjeThey.getText().toString().equals("")){
             addZvanjeThey.setText("0");
         }else {
-            thereScore.setZvanje(Integer.parseInt(addZvanjeThey.getText().toString()));
             addZvanjeWe.setText("0");
         }
-
+        thereScore.setZvanje(Integer.parseInt(addZvanjeThey.getText().toString()));
+        ourScore.setZvanje(0);
+        //maxScore = score_calculations.getMaxScore();
     }
 
     @OnTextChanged(R.id.edit_new_score_we)
     public void onScoreChange(){
-
-        int maxScore = score_calculations.maxScore();
         if(addScoreWe.getText().toString().equals("")){
-            addScoreThey.setText(String.valueOf(maxScore));
+            addScoreThey.setText(String.valueOf(162));
         }else {
-            addScoreThey.setText(String.valueOf(maxScore-Integer.parseInt(addScoreWe.getText().toString())));
+            addScoreThey.setText(String.valueOf(162-Integer.parseInt(addScoreWe.getText().toString())));
         }
 
     }
 
     @OnClick(R.id.btn_confirm)
     public void onClickConfirm(){
-        ourScore.addScore(Integer.parseInt(addScoreWe.getText().toString()));
-        thereScore.addScore(Integer.parseInt(addScoreThey.getText().toString()));
+        ourScore.addScore(Integer.parseInt(addScoreWe.getText().toString()),Integer.parseInt(addZvanjeWe.getText().toString()));
+        thereScore.addScore(Integer.parseInt(addScoreThey.getText().toString()),Integer.parseInt(addZvanjeThey.getText().toString()));
+        score_calculations.roundResult();
         getActivity().getFragmentManager().popBackStack();
         refresh();
     }
