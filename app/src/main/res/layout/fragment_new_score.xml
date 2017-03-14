@@ -1,139 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TableRow
-            android:layout_width="match_parent"
-            >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_weight="1"
+    <TextView
+        android:text="Mi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_header_we"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="48dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-                android:text="Mi"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:id="@+id/txt_header_add_score_we" />
+    <TextView
+        android:text="Vi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_header_they"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/txt_header_we"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="1.0" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
+    <ImageView
+        android:layout_height="5dp"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_header_we"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/thin_line"
+        />
 
-                android:text="Vi"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:id="@+id/txt_header_add_score_they"
-                />
-        </TableRow>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:src="@drawable/thin_line"
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:weightSum="1"
+        app:layout_constraintTop_toBottomOf="@+id/txt_header_we"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+        <RadioButton
+            android:layout_gravity="left"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_call_we"
+
             />
         <TextView
-            android:text="Bela"
-            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zvao"
             />
+        <RadioButton
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_call_they"
+            />
+    </RadioGroup>
 
-        <TableRow
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
+    <CheckBox
+        android:id="@+id/check_bela_we"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_header_we" />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Bela"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/check_bela_they"
+        app:layout_constraintTop_toBottomOf="@+id/radio_group"
+        app:layout_constraintLeft_toRightOf="@+id/check_bela_we" />
 
-                <CheckBox
-                    android:id="@+id/bela_we"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="left"
-                    android:gravity="center"
-                    android:layout_marginStart="65dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+    <CheckBox
+        android:id="@+id/check_bela_they"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_header_we" />
 
-                <CheckBox
-                    android:id="@+id/bela_they"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="right"
-                    android:gravity="center"
-                    android:layout_marginEnd="53dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
-        </TableRow>
-        <TableRow>
-            <EditText
-                android:id="@+id/edit_new_zvanje_we"
-                android:layout_weight="1"
-                android:hint="zvanje"
-                android:textAlignment="center"
-                android:inputType="number"
-                />
-            <EditText
-                android:id="@+id/edit_new_zvanje_they"
-                android:layout_weight="1"
-                android:hint="zvanje"
-                android:textAlignment="center"
-                android:inputType="number"
-                />
+    <EditText
+        android:id="@+id/edit_new_zvanje_we"
+        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:hint="Zvanje"
+        android:inputType="number"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_bela_we"
+        app:layout_constraintRight_toLeftOf="@+id/edit_new_zvanje_they"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="8dp"
+         />
+    <EditText
+        android:id="@+id/edit_new_zvanje_they"
+        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:hint="Zvanje"
+        android:inputType="number"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_bela_they"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="16dp" />
+    <EditText
+        android:id="@+id/edit_new_score_we"
+        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:hint="Rezultat"
+        android:inputType="number"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_new_zvanje_we"
+        app:layout_constraintRight_toLeftOf="@+id/edit_new_zvanje_they"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="8dp"
+        />
+    <EditText
+        android:id="@+id/edit_new_score_they"
+        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:hint="Rezultat"
+        android:inputType="number"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_new_zvanje_they"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="16dp" />
 
-        </TableRow>
-        <TableRow>
-            <EditText
-                android:id="@+id/edit_new_score_we"
-                android:layout_weight="1"
-                android:hint="bodovi"
-                android:textAlignment="center"
-                android:inputType="number"
-                />
-            <EditText
-                android:id="@+id/edit_new_score_they"
-                android:layout_weight="1"
-                android:hint="bodovi"
-                android:textAlignment="center"
-                android:inputType="number"
-                />
-
-        </TableRow>
-
-        <TableRow>
-            <RelativeLayout
-                android:layout_width="match_parent">
-
-            </RelativeLayout>
-
-            <ImageButton
-                android:id="@+id/btn_confirm"
-                android:background="@drawable/roundedbutton"
-                android:layout_width="@dimen/rounded_button_dimensions"
-                android:layout_height="@dimen/rounded_button_dimensions"
-                android:src="@mipmap/icon_confirm"
-                />
-
-            <ImageButton
-                android:id="@+id/btn_reject"
-                android:background="@drawable/roundedbutton"
-                android:layout_width="@dimen/rounded_button_dimensions"
-                android:layout_height="@dimen/rounded_button_dimensions"
-                android:layout_marginLeft="70dp"
-                android:src="@mipmap/icon_reject"
-                />
-
-        </TableRow>
-    </TableLayout>
+    <ImageButton
+        android:id="@+id/btn_confirm"
+        android:layout_height="60dp"
+        android:layout_width="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_new_score_we"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/roundedbutton"
+        android:src="@mipmap/icon_confirm"
+        />
+    <ImageButton
+        android:layout_height="60dp"
+        android:layout_width="60dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_new_score_they"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:id="@+id/btn_reject"
+        android:background="@drawable/roundedbutton"
+        android:src="@mipmap/icon_reject"
+        />
 
 
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

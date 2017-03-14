@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -24,21 +26,20 @@ public class Fragment_Add_Score extends Fragment {
 
     @BindView(R.id.edit_new_score_we)
     EditText addScoreWe;
-
     @BindView(R.id.edit_new_score_they)
     EditText addScoreThey;
-
     @BindView(R.id.edit_new_zvanje_we)
     EditText addZvanjeWe;
-
     @BindView(R.id.edit_new_zvanje_they)
     EditText addZvanjeThey;
-
-
-    @BindView(R.id.txt_header_add_score_we)
-    TextView headerWe;
-    @BindView(R.id.txt_header_add_score_they)
-    TextView headerThey;
+    @BindView(R.id.check_bela_we)
+    CheckBox belaWe;
+    @BindView(R.id.check_bela_they)
+    CheckBox belaThey;
+    @BindView(R.id.radio_call_we)
+    RadioButton callWe;
+    @BindView(R.id.radio_call_they)
+    RadioButton callThey;
 
     Player we;
     Player they;
@@ -49,7 +50,6 @@ public class Fragment_Add_Score extends Fragment {
     Score_Calculations score_calculations;
 
     FragmentManager mFragmentManager;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,23 +67,14 @@ public class Fragment_Add_Score extends Fragment {
 
         ourScore = we.getScore();
         thereScore = they.getScore();
+        ourScore.setZvanje(0);
+        thereScore.setZvanje(0);
 
         score_calculations = Score_Calculations.getInstance(we,they);
 
-        if(ourScore.getPreviousScores().size()%2==0){
-            headerWe.setTextColor(getResources().getColor(R.color.colorPrimary));
-            we.setTurn(1);
-            headerThey.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-            they.setTurn(0);
-        }else {
-            headerWe.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-            we.setTurn(0);
-            headerThey.setTextColor(getResources().getColor(R.color.colorPrimary));
-            they.setTurn(1);
-        }
-
-
+        callWe.setChecked(true);
     }
+
     @OnFocusChange(R.id.edit_new_zvanje_we)
     public void onZvanjeWeChange(){
         if(addZvanjeWe.getText().toString().equals("")){
@@ -121,8 +112,20 @@ public class Fragment_Add_Score extends Fragment {
 
     @OnClick(R.id.btn_confirm)
     public void onClickConfirm(){
-        ourScore.addScore(Integer.parseInt(addScoreWe.getText().toString()),Integer.parseInt(addZvanjeWe.getText().toString()));
-        thereScore.addScore(Integer.parseInt(addScoreThey.getText().toString()),Integer.parseInt(addZvanjeThey.getText().toString()));
+        if(callWe.isChecked()){
+            we.setTurn(1);
+            they.setTurn(0);
+        }else {
+            we.setTurn(0);
+            they.setTurn(1);
+        }
+        if (belaWe.isChecked()){
+            ourScore.setZvanje(Integer.parseInt(addZvanjeWe.getText().toString())+20);
+        }else if (belaThey.isChecked()){
+            thereScore.setZvanje(Integer.parseInt(addZvanjeWe.getText().toString())+20);
+        }
+        ourScore.addScore(Integer.parseInt(addScoreWe.getText().toString()),ourScore.getZvanje());
+        thereScore.addScore(Integer.parseInt(addScoreThey.getText().toString()),thereScore.getZvanje());
         score_calculations.roundResult();
         getActivity().getFragmentManager().popBackStack();
         refresh();
