@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         intent.putExtra("we",we);
         intent.putExtra("they",they);
 
-        Fragment_Scoreboard fs = new Fragment_Scoreboard();
-        StartFragment.StartNewFragment(fs,this);
+        FragmentChoosePlayers fcp = new FragmentChoosePlayers();
+        StartFragment.StartNewFragment(fcp,this);
 
     }
 

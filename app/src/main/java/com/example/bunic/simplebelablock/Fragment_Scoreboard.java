@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,6 +55,8 @@ public class Fragment_Scoreboard extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Bela Blok");
         Intent intent = getActivity().getIntent();
         we = intent.getExtras().getParcelable("we");
         they = intent.getExtras().getParcelable("they");
