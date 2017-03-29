@@ -33,8 +33,8 @@ public class FragmentChoosePlayers extends Fragment {
 
     @OnClick(R.id.img_btn_three_players)
     public void onThreePlayersClick(){
-        Fragment_Scoreboard fs = new Fragment_Scoreboard();
-        StartFragment.StartNewFragment(fs, getActivity());
+        FragmentScoreBoardThree fs3 = new FragmentScoreBoardThree();
+        StartFragment.StartNewFragment(fs3, getActivity());
     }
 
     @OnClick(R.id.img_btn_four_players)
