@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
         FragmentChoosePlayers fcp = new FragmentChoosePlayers();
         StartFragment.StartNewFragment(fcp,this);
-
     }
 
     private Toolbar setToolbar(){
@@ -60,6 +59,5 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     @Override
     public void onBackStackChanged() {
-
     }
 }

@@ -14,7 +14,8 @@ public class Player implements Parcelable{
     private Score score;
     private int Turn;
 
-
+    public Player() {
+    }
 
     public Player(String name, Score score) {
         this.name = name;
