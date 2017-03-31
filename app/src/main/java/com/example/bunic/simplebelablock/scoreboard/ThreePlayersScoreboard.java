@@ -10,8 +10,22 @@ import java.util.List;
 
 public class ThreePlayersScoreboard extends Scoreboard {
 
-    public ThreePlayersScoreboard(List<Player> players) {
+    static ThreePlayersScoreboard INSTANCE;
+
+    private ThreePlayersScoreboard(List<Player> players) {
+        INSTANCE = this;
         initializePlayers(players);
+    }
+
+    public static ThreePlayersScoreboard getInstance(List<Player> players){
+        if(INSTANCE == null){
+            INSTANCE = new ThreePlayersScoreboard(players);
+        }
+        return INSTANCE;
+    }
+
+    public static ThreePlayersScoreboard getInstance(){
+        return INSTANCE;
     }
 
     @Override

@@ -38,6 +38,7 @@ public class FragmentScoreBoardThree extends Fragment {
 
     RecyclerView recyclerView;
     ThreePlayersScoreList mAdapter;
+    ThreePlayersScoreboard board;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +58,10 @@ public class FragmentScoreBoardThree extends Fragment {
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler);
 
+        if(board == null){
+            board = ThreePlayersScoreboard.getInstance(setPlayers());
+        }
+        /*
         //--------- Test values-------------
         Player player1 = new Player();
         Player player2 = new Player();
@@ -76,6 +81,7 @@ public class FragmentScoreBoardThree extends Fragment {
 
         board.newRow(scores,calls,0);
         //-----------------------------------
+        */
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_three);
         mAdapter = new ThreePlayersScoreList(getActivity().getApplicationContext(), board);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -103,5 +109,16 @@ public class FragmentScoreBoardThree extends Fragment {
         fab.setVisibility(View.GONE);
     }
 
+    private List<Player> setPlayers(){
+        Player player1 = new Player();
+        Player player2 = new Player();
+        Player player3 = new Player();
 
+        List<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+
+        return players;
+    }
 }
