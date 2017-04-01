@@ -86,7 +86,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="bela"
+                    android:text="Bela"
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
                     />
@@ -119,6 +119,7 @@
                     <EditText
                         android:id="@+id/edit_zvanje_three_player1"
                         android:gravity="center"
+                        android:inputType="number"
                         android:hint="zvanje"
                         android:layout_weight="1"
                         android:textColor="@color/colorWhite"
@@ -129,6 +130,7 @@
                     <EditText
                         android:id="@+id/edit_zvanje_three_player2"
                         android:gravity="center"
+                        android:inputType="number"
                         android:hint="zvanje"
                         android:layout_weight="1"
                         android:textColor="@color/colorWhite"
@@ -139,6 +141,7 @@
                     <EditText
                         android:id="@+id/edit_zvanje_three_player3"
                         android:gravity="center"
+                        android:inputType="number"
                         android:hint="zvanje"
                         android:layout_weight="1"
                         android:textColor="@color/colorWhite"
@@ -155,6 +158,7 @@
                     <EditText
                         android:id="@+id/edit_score_three_player1"
                         android:gravity="center"
+                        android:inputType="number"
                         android:hint="score"
                         android:layout_weight="1"
                         android:textColor="@color/colorWhite"
@@ -165,6 +169,7 @@
                     <EditText
                         android:id="@+id/edit_score_three_player2"
                         android:gravity="center"
+                        android:inputType="number"
                         android:hint="score"
                         android:layout_weight="1"
                         android:textColor="@color/colorWhite"
@@ -175,6 +180,7 @@
                     <EditText
                         android:id="@+id/edit_score_three_player3"
                         android:gravity="center"
+                        android:inputType="number"
                         android:hint="score"
                         android:layout_weight="1"
                         android:textColor="@color/colorWhite"

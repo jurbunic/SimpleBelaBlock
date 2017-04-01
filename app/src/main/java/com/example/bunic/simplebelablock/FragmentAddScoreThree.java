@@ -101,6 +101,25 @@ public class FragmentAddScoreThree extends Fragment {
             score1.setText(totalScore.toString());
         }
     }
+    @OnClick(R.id.fab_confirm)
+    public void onClickConfirm(){
+        Integer score[] = new Integer[3];
+        Integer calls[] = new Integer[3];
+        Integer playerOnTurn = 0;
+
+        score[0] = Integer.parseInt(score1.getText().toString());
+        score[1] = Integer.parseInt(score2.getText().toString());
+        score[2] = Integer.parseInt(score3.getText().toString());
+
+        calls[0] = Integer.parseInt(zvanje1.getText().toString());
+        calls[1] = Integer.parseInt(zvanje2.getText().toString());
+        calls[2] = Integer.parseInt(zvanje3.getText().toString());
+
+        board.newRow(score,calls,playerOnTurn);
+        getActivity().getFragmentManager();
+        refresh();
+    }
+
     @OnClick(R.id.fab_reject)
     public void onClickReject(){
         getActivity().getFragmentManager().popBackStack();
