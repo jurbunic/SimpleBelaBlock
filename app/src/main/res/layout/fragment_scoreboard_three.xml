@@ -71,6 +71,33 @@
                 >
                 <include layout="@layout/recycler_three_players"/>
             </LinearLayout>
+            <TableRow
+                android:layout_margin="@dimen/activity_horizontal_margin">
+                <TextView
+                    android:id="@+id/txt_total_score_player1"
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/txt_total_score_player2"
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/txt_total_score_player3"
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+            </TableRow>
 
         </TableLayout>
 

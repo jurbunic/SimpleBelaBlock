@@ -11,6 +11,7 @@ import java.util.List;
 public class ThreePlayersScoreboard extends Scoreboard {
 
     static ThreePlayersScoreboard INSTANCE;
+    Integer[] totalScores = new Integer[]{0, 0, 0};
 
     private ThreePlayersScoreboard(List<Player> players) {
         INSTANCE = this;
@@ -39,11 +40,15 @@ public class ThreePlayersScoreboard extends Scoreboard {
     }
 
     public void newRow(Integer[] score, Integer[] calls, Integer playerOnTurn){
-        String row = ScoreCalculator.calcuateRow(score,calls,playerOnTurn);
+        String row = ScoreCalculator.calcuateRow(score,calls,totalScores,playerOnTurn);
+
         super.row = row;
         addToScoreList();
     }
 
+    public Integer getTotalScore(Integer player){
+        return totalScores[player];
+    }
 
 
 

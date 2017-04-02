@@ -59,6 +59,7 @@
                     android:gravity="center_vertical"
                     >
                     <RadioButton
+                        android:id="@+id/radio_turn_player1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
@@ -67,6 +68,7 @@
                         app:buttonTint="@color/colorWhite"
                         />
                     <RadioButton
+                        android:id="@+id/radio_turn_player2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -75,6 +77,7 @@
                         app:buttonTint="@color/colorWhite"
                         />
                     <RadioButton
+                        android:id="@+id/radio_turn_player3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -83,34 +86,6 @@
                         app:buttonTint="@color/colorWhite"
                         />
                 </RadioGroup>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bela"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
-                    />
-                <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    >
-                    <CheckBox
-                        android:layout_weight="1"
-                        android:layout_marginStart="50dp"
-                        app:buttonTint="@color/colorWhite"
-                        />
-                    <CheckBox
-                        android:layout_weight="1"
-                        android:layout_marginStart="50dp"
-                        app:buttonTint="@color/colorWhite"
-                        />
-                    <CheckBox
-                        android:layout_weight="1"
-                        android:layout_marginStart="50dp"
-                        app:buttonTint="@color/colorWhite"
-                        />
-                </TableRow>
                 <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"

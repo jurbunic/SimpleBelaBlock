@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Adapters.ThreePlayersScoreList;
@@ -35,6 +36,13 @@ public class FragmentScoreBoardThree extends Fragment {
     FloatingActionButton fab;
     @BindView(R.id.new_score_fragment_container)
     FrameLayout newScore;
+
+    @BindView(R.id.txt_total_score_player1)
+    TextView totalScorePlayer1;
+    @BindView(R.id.txt_total_score_player2)
+    TextView totalScorePlayer2;
+    @BindView(R.id.txt_total_score_player3)
+    TextView totalScorePlayer3;
 
     RecyclerView recyclerView;
     ThreePlayersScoreList mAdapter;
@@ -82,6 +90,11 @@ public class FragmentScoreBoardThree extends Fragment {
         board.newRow(scores,calls,0);
         //-----------------------------------
         */
+
+        totalScorePlayer1.setText(board.getTotalScore(0).toString());
+        totalScorePlayer2.setText(board.getTotalScore(1).toString());
+        totalScorePlayer3.setText(board.getTotalScore(2).toString());
+
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_three);
         mAdapter = new ThreePlayersScoreList(getActivity().getApplicationContext(), board);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

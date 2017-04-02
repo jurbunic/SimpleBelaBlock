@@ -15,6 +15,7 @@ public abstract class Scoreboard {
     String row;
     List<String> allRows;
     List<Player> players;
+    List<Integer> totalScore;
 
     protected void initializePlayers(List<Player> players){
         this.players = players;
@@ -32,6 +33,4 @@ public abstract class Scoreboard {
     public Integer listSize(){
         return allRows.size();
     }
-
-
 }
