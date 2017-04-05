@@ -8,6 +8,7 @@ public class ScoreCalculator {
     private static final Integer MAX_SCORE = 162;
 
     public static String calcuateRow(Integer[] points, Integer[] calls, Integer[] totalScores, Integer playerOnTurn){
+        boolean pass = true;
         Integer inGamePoints = MAX_SCORE;
         for(int i=0;i<calls.length;i++){
             inGamePoints +=calls[i];
@@ -15,15 +16,30 @@ public class ScoreCalculator {
         }
         if(points[playerOnTurn]<=inGamePoints/2){
             points[playerOnTurn]=0;
+            pass = false;
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(points[0].toString())
-                .append("$")
-                .append(points[1].toString())
-                .append("$")
-                .append(points[2].toString());
-        calculateTotalScore(totalScores,points);
-        return sb.toString();
+        if(points.length==3){
+            StringBuilder sb = new StringBuilder();
+            sb.append(points[0].toString())
+                    .append("$")
+                    .append(points[1].toString())
+                    .append("$")
+                    .append(points[2].toString());
+            calculateTotalScore(totalScores,points);
+            return sb.toString();
+        }else {
+            if(!pass){
+                points[(playerOnTurn+1)%2]=162 +calls[0]+calls[1];
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.append(points[0].toString())
+                    .append("$")
+                    .append(points[1].toString());
+            calculateTotalScore(totalScores,points);
+            return sb.toString();
+        }
+
+
     }
 
     private static Integer[] calculateTotalScore(Integer[] totalScore, Integer[] points){

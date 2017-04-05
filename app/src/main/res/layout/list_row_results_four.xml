@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/result_list_content"
+    android:id="@+id/result_list_content_four"
     >
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:textColor="@color/colorPrimary"
         android:textAlignment="center"
         android:textSize="15sp"
-        android:id="@+id/txt_row_we"
+        android:id="@+id/txt_row_player1"
         android:text="rez1"
         />
     <TextView
@@ -24,7 +24,8 @@
         android:textColor="@color/colorPrimary"
         android:textAlignment="center"
         android:textSize="15sp"
-        android:id="@+id/txt_row_they"
+        android:id="@+id/txt_row_player2"
         android:text="rez1"
         />
+
 </LinearLayout>

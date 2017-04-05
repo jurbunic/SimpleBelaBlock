@@ -3,7 +3,6 @@ package com.example.bunic.simplebelablock;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.bunic.simplebelablock.Adapters.ThreePlayersScoreList;
+import com.example.bunic.simplebelablock.Adapters.FourPlayersScoreList;
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
-import com.example.bunic.simplebelablock.scoreboard.Scoreboard;
-import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
+import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +25,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by bunic on 3/29/17.
+ * Created by bunic on 05.04.17..
  */
 
-public class FragmentScoreBoardThree extends Fragment {
+public class FragmentScoreboardFour extends Fragment{
     @BindView(R.id.fab_new_score)
     FloatingActionButton fab;
     @BindView(R.id.new_score_fragment_container)
@@ -42,16 +38,14 @@ public class FragmentScoreBoardThree extends Fragment {
     TextView totalScorePlayer1;
     @BindView(R.id.txt_total_score_player2)
     TextView totalScorePlayer2;
-    @BindView(R.id.txt_total_score_player3)
-    TextView totalScorePlayer3;
 
     RecyclerView recyclerView;
-    ThreePlayersScoreList mAdapter;
-    ThreePlayersScoreboard board;
+    FourPlayersScoreList mAdapter;
+    FourPlayersScoreboard board;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_scoreboard_three, container, false);
+        View view = inflater.inflate(R.layout.fragment_scoreboard_four, container, false);
         ButterKnife.bind(this,view);
         return view;
     }
@@ -65,16 +59,16 @@ public class FragmentScoreBoardThree extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Bela Blok");
 
+
         if(board == null){
-            board = ThreePlayersScoreboard.getInstance(setPlayers());
+            board = FourPlayersScoreboard.getInstance(setPlayers());
         }
 
         totalScorePlayer1.setText(board.getTotalScore(0).toString());
         totalScorePlayer2.setText(board.getTotalScore(1).toString());
-        totalScorePlayer3.setText(board.getTotalScore(2).toString());
 
-        recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_three);
-        mAdapter = new ThreePlayersScoreList(getActivity().getApplicationContext(), board);
+        recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_four);
+        mAdapter = new FourPlayersScoreList(getActivity().getApplicationContext(), board);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -95,20 +89,18 @@ public class FragmentScoreBoardThree extends Fragment {
 
     @OnClick(R.id.fab_new_score)
     public void onFabClick(){
-        FragmentAddScoreThree fast = new FragmentAddScoreThree();
-        StartFragment.StartNewFragment(fast,getActivity(),"1");
+        FragmentAddScoreFour fasf = new FragmentAddScoreFour();
+        StartFragment.StartNewFragment(fasf,getActivity(),"1");
         fab.setVisibility(View.GONE);
     }
 
     private List<Player> setPlayers(){
         Player player1 = new Player();
         Player player2 = new Player();
-        Player player3 = new Player();
 
         List<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
-        players.add(player3);
 
         return players;
     }

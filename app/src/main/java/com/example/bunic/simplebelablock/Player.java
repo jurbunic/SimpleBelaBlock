@@ -11,19 +11,13 @@ import android.os.Parcelable;
 
 public class Player implements Parcelable{
     private String name;
-    private Score score;
     private int Turn;
 
     public Player() {
     }
 
-    public Player(String name, Score score) {
+    public Player(String name) {
         this.name = name;
-        this.score = score;
-    }
-
-    public Score getScore() {
-        return score;
     }
 
     public int getTurn() {
@@ -43,7 +37,7 @@ public class Player implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeParcelable(score, flags);
+        //dest.writeParcelable(Some object, flags);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
@@ -60,6 +54,6 @@ public class Player implements Parcelable{
 
     public Player(Parcel in){
         name = in.readString();
-        score = (Score) in.readParcelable(Score.class.getClassLoader());
+ //       score = (Score) in.readParcelable(Score.class.getClassLoader());
     }
 }

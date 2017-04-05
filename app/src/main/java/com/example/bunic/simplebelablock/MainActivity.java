@@ -14,10 +14,8 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     private Toolbar toolbar;
     private FragmentManager mFragmentManager;
 
-    Score scoreWe = new Score();
-    Score scoreThey = new Score();
-    Player we = new Player("We",scoreWe);
-    Player they = new Player("They", scoreThey);
+    Player we = new Player("We");
+    Player they = new Player("They");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
         mFragmentManager = getFragmentManager();
         mFragmentManager.addOnBackStackChangedListener(this);
-
-        scoreWe.setCurrentScore(0);
-        scoreThey.setCurrentScore(0);
-        //scoreWe.addScore(0);
-        //scoreThey.addScore(0);
+        
         Intent intent = getIntent();
         intent.putExtra("we",we);
         intent.putExtra("they",they);
