@@ -4,11 +4,13 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
 
@@ -71,7 +73,7 @@ public class FragmentAddScoreThree extends Fragment {
 
     @OnFocusChange(R.id.edit_score_three_player1)
     public void onScore1Change(){
-        if(score2.getText().toString().equals("") && score3.getText().toString().equals("")){
+        if(scoreIsEmpty()){
             return;
         }
         Integer totalScore;
@@ -87,7 +89,7 @@ public class FragmentAddScoreThree extends Fragment {
 
     @OnFocusChange(R.id.edit_score_three_player2)
     public void onScore2Change(){
-        if(score1.getText().toString().equals("") && score3.getText().toString().equals("")){
+        if(scoreIsEmpty()){
             return;
         }
         Integer totalScore;
@@ -103,7 +105,7 @@ public class FragmentAddScoreThree extends Fragment {
 
     @OnFocusChange(R.id.edit_score_three_player3)
     public void onScore3Change(){
-        if(score1.getText().toString().equals("") && score2.getText().toString().equals("")){
+        if(scoreIsEmpty()){
             return;
         }
         Integer totalScore;
@@ -116,10 +118,24 @@ public class FragmentAddScoreThree extends Fragment {
             score1.setText(totalScore.toString());
         }
     }
+
     @OnClick(R.id.fab_confirm)
     public void onClickConfirm(){
         Integer score[] = new Integer[3];
         Integer calls[] = new Integer[3];
+
+        if(scoreIsEmpty()){
+            Toast.makeText(getActivity().getApplicationContext(), "Insert at least two scores! ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(score1.getText().toString().equals("")){
+            calculateScore(score1,score2,score3);
+        }else if(score2.getText().toString().equals("")){
+            calculateScore(score2,score1,score3);
+        }else if(score3.getText().toString().equals("")){
+            calculateScore(score3,score1,score2);
+        }
 
         score[0] = Integer.parseInt(score1.getText().toString());
         score[1] = Integer.parseInt(score2.getText().toString());
@@ -153,4 +169,27 @@ public class FragmentAddScoreThree extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(f).attach(f).commit();
     }
+
+    private boolean scoreIsEmpty(){
+        String valScore1 = score1.getText().toString();
+        String valScore2 = score2.getText().toString();
+        String valScore3 = score3.getText().toString();
+
+        if(valScore1.equals("") && valScore2.equals("") && valScore3.equals("")){
+            return true;
+        }else if(valScore2.equals("") && valScore3.equals("")){
+            return true;
+        }else if(valScore1.equals("") && valScore3.equals("")){
+            return true;
+        }else if(valScore1.equals("") && valScore2.equals("")){
+            return true;
+        }
+        return false;
+    }
+
+    private void calculateScore(EditText result, EditText firstScore, EditText secondScore){
+        Integer score = 162 - (Integer.parseInt(firstScore.getText().toString())+Integer.parseInt(secondScore.getText().toString()));
+        result.setText(score.toString());
+    }
+
 }
