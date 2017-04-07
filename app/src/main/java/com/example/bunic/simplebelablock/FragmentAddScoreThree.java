@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.bunic.simplebelablock.Helpers.InputFilterMinMax;
 import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
 
 import butterknife.BindView;
@@ -69,6 +71,9 @@ public class FragmentAddScoreThree extends Fragment {
         }else if (onTurn == 2){
             player3Turn.setChecked(true);
         }
+        score1.setFilters(new InputFilter[]{new InputFilterMinMax(0,162)});
+        score2.setFilters(new InputFilter[]{new InputFilterMinMax(0,162)});
+        score3.setFilters(new InputFilter[]{new InputFilterMinMax(0,162)});
     }
 
     @OnFocusChange(R.id.edit_score_three_player1)

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
         mFragmentManager = getFragmentManager();
         mFragmentManager.addOnBackStackChangedListener(this);
-        
+
         Intent intent = getIntent();
         intent.putExtra("we",we);
         intent.putExtra("they",they);

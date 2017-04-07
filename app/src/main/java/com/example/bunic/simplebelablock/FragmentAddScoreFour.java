@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.bunic.simplebelablock.Helpers.InputFilterMinMax;
 import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
 
 import butterknife.BindView;
@@ -60,6 +62,9 @@ public class FragmentAddScoreFour extends Fragment {
         }else if (onTurn == 1){
             player2Turn.setChecked(true);
         }
+
+        score1.setFilters(new InputFilter[]{new InputFilterMinMax(0,162)});
+        score2.setFilters(new InputFilter[]{new InputFilterMinMax(0,162)});
     }
 
     @OnFocusChange(R.id.edit_score_four_player1)
