@@ -1,7 +1,10 @@
 package com.example.bunic.simplebelablock;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -33,7 +36,12 @@ public class FragmentScoreboardFour extends Fragment{
     FloatingActionButton fab;
     @BindView(R.id.new_score_fragment_container)
     FrameLayout newScore;
+    SharedPreferences preferences;
 
+    @BindView(R.id.txt_player_1)
+    TextView player1Name;
+    @BindView(R.id.txt_player_2)
+    TextView player2Name;
     @BindView(R.id.txt_total_score_player1)
     TextView totalScorePlayer1;
     @BindView(R.id.txt_total_score_player2)
@@ -42,12 +50,22 @@ public class FragmentScoreboardFour extends Fragment{
     RecyclerView recyclerView;
     FourPlayersScoreList mAdapter;
     FourPlayersScoreboard board;
+    List<Player> players;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scoreboard_four, container, false);
         ButterKnife.bind(this,view);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        players = setPlayers();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        player1Name.setText(players.get(0).getName());
+        player2Name.setText(players.get(1).getName());
     }
 
     @Override
@@ -61,7 +79,7 @@ public class FragmentScoreboardFour extends Fragment{
 
 
         if(board == null){
-            board = FourPlayersScoreboard.getInstance(setPlayers());
+            board = FourPlayersScoreboard.getInstance(players);
         }
 
         totalScorePlayer1.setText(board.getTotalScore(0).toString());
@@ -98,6 +116,10 @@ public class FragmentScoreboardFour extends Fragment{
         Player player1 = new Player();
         Player player2 = new Player();
 
+        player1.setName(preferences.getString("TEAM1NAME","Team1"));
+        player2.setName(preferences.getString("TEAM2NAME","Team2"));
+
+        player1.getName();
         List<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);

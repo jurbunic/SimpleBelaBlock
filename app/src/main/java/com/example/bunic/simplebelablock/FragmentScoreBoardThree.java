@@ -1,7 +1,10 @@
 package com.example.bunic.simplebelablock;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,12 @@ public class FragmentScoreBoardThree extends Fragment {
     @BindView(R.id.new_score_fragment_container)
     FrameLayout newScore;
 
+    @BindView(R.id.txt_player_1)
+    TextView player1Name;
+    @BindView(R.id.txt_player_2)
+    TextView player2Name;
+    @BindView(R.id.txt_player_3)
+    TextView player3Name;
     @BindView(R.id.txt_total_score_player1)
     TextView totalScorePlayer1;
     @BindView(R.id.txt_total_score_player2)
@@ -49,11 +59,24 @@ public class FragmentScoreBoardThree extends Fragment {
     ThreePlayersScoreList mAdapter;
     ThreePlayersScoreboard board;
 
+    SharedPreferences preferences;
+    List<Player> players;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scoreboard_three, container, false);
         ButterKnife.bind(this,view);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        players = setPlayers();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        player1Name.setText(players.get(0).getName());
+        player2Name.setText(players.get(1).getName());
+        player3Name.setText(players.get(2).getName());
     }
 
     @Override
@@ -66,7 +89,7 @@ public class FragmentScoreBoardThree extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Bela Blok");
 
         if(board == null){
-            board = ThreePlayersScoreboard.getInstance(setPlayers());
+            board = ThreePlayersScoreboard.getInstance(players);
         }
 
         totalScorePlayer1.setText(board.getTotalScore(0).toString());
@@ -104,6 +127,10 @@ public class FragmentScoreBoardThree extends Fragment {
         Player player1 = new Player();
         Player player2 = new Player();
         Player player3 = new Player();
+
+        player1.setName(preferences.getString("PLAYER1NAME","player1"));
+        player2.setName(preferences.getString("PLAYER2NAME","player2"));
+        player3.setName(preferences.getString("PLAYER3NAME","player3"));
 
         List<Player> players = new ArrayList<>();
         players.add(player1);

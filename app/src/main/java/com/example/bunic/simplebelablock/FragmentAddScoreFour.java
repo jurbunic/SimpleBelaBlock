@@ -3,17 +3,23 @@ package com.example.bunic.simplebelablock;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Helpers.InputFilterMinMax;
 import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +34,11 @@ public class FragmentAddScoreFour extends Fragment {
     FragmentManager mFragmentManager;
     FourPlayersScoreboard board;
     Integer onTurn;
+
+    @BindView(R.id.txt_player_1)
+    TextView player1Name;
+    @BindView(R.id.txt_player_2)
+    TextView player2Name;
 
     @BindView(R.id.edit_score_four_player1)
     EditText score1;
@@ -44,17 +55,31 @@ public class FragmentAddScoreFour extends Fragment {
     @BindView(R.id.radio_turn_player2)
     RadioButton player2Turn;
 
+    List<Player> players;
+    SharedPreferences preferences;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_score_four, container, false);
         ButterKnife.bind(this,view);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        board = FourPlayersScoreboard.getInstance();
+        players = board.getPlayers();
+        player1Name.setText(players.get(0).getName());
+        player2Name.setText(players.get(1).getName());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        board = FourPlayersScoreboard.getInstance();
+
         mFragmentManager = getFragmentManager();
         onTurn = board.listSize() % 2;
         if(onTurn == 0){

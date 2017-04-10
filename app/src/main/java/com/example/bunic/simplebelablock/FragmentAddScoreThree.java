@@ -3,7 +3,10 @@ package com.example.bunic.simplebelablock;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -11,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Helpers.InputFilterMinMax;
 import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +35,13 @@ public class FragmentAddScoreThree extends Fragment {
     FragmentManager mFragmentManager;
     ThreePlayersScoreboard board;
     Integer onTurn;
+
+    @BindView(R.id.txt_player_1)
+    TextView player1Name;
+    @BindView(R.id.txt_player_2)
+    TextView player2Name;
+    @BindView(R.id.txt_player_3)
+    TextView player3Name;
 
     @BindView(R.id.edit_score_three_player1)
     EditText score1;
@@ -51,17 +64,30 @@ public class FragmentAddScoreThree extends Fragment {
     @BindView(R.id.radio_turn_player3)
     RadioButton player3Turn;
 
+    List<Player> players;
+    SharedPreferences preferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_score_three, container, false);
         ButterKnife.bind(this,view);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
+    }
+
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        board = ThreePlayersScoreboard.getInstance();
+        players = board.getPlayers();
+        player1Name.setText(players.get(0).getName());
+        player2Name.setText(players.get(1).getName());
+        player3Name.setText(players.get(2).getName());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        board = ThreePlayersScoreboard.getInstance();
+
         mFragmentManager = getFragmentManager();
         onTurn = board.listSize() % 3;
         if(onTurn == 0){

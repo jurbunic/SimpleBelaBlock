@@ -33,4 +33,8 @@ public abstract class Scoreboard {
     public Integer listSize(){
         return allRows.size();
     }
+
+    public List<Player> getPlayers(){
+        return players;
+    }
 }

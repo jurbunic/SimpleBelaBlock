@@ -11,7 +11,6 @@ import android.os.Parcelable;
 
 public class Player implements Parcelable{
     private String name;
-    private int Turn;
 
     public Player() {
     }
@@ -20,14 +19,14 @@ public class Player implements Parcelable{
         this.name = name;
     }
 
-    public int getTurn() {
-        return Turn;
+    public String getName() {
+        return name;
     }
-    public void setTurn(int turn) {
-        Turn = turn;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    //Parcel------------------------------------------
+    //----------------------Parcel------------------------------------------
 
     @Override
     public int describeContents() {

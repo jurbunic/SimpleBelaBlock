@@ -1,7 +1,10 @@
 package com.example.bunic.simplebelablock;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,5 +44,16 @@ public class FragmentChoosePlayers extends Fragment {
     public void onFourPlayersClick(){
         FragmentScoreboardFour fs = new FragmentScoreboardFour();
         StartFragment.StartNewFragment(fs, getActivity());
+
+    }
+
+    @OnClick(R.id.img_btn_options)
+    public void onOptionsClick(){
+        FragmentOptions fo = new FragmentOptions();
+        FragmentTransaction fm = this.getFragmentManager().beginTransaction();
+        fm.replace(R.id.fragment_container, fo);
+        fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fm.addToBackStack("");
+        fm.commit();
     }
 }
