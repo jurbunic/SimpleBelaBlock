@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.bunic.simplebelablock.Adapters.FourPlayersScoreList;
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
-import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
+import com.example.bunic.simplebelablock.scoreboard.ScoreboardFour;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,8 @@ public class FragmentScoreboardFour extends Fragment{
 
     RecyclerView recyclerView;
     FourPlayersScoreList mAdapter;
-    FourPlayersScoreboard board;
-    List<Player> players;
+    ScoreboardFour board;
+    ArrayList<Player> players;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,11 +79,11 @@ public class FragmentScoreboardFour extends Fragment{
 
 
         if(board == null){
-            board = FourPlayersScoreboard.getInstance(players);
+            board = ScoreboardFour.getInstance(players);
         }
 
-        totalScorePlayer1.setText(board.getTotalScore(0).toString());
-        totalScorePlayer2.setText(board.getTotalScore(1).toString());
+        totalScorePlayer1.setText(String.valueOf(board.getTotalScore()[0]));
+        totalScorePlayer2.setText(String.valueOf(board.getTotalScore()[1]));
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_four);
         mAdapter = new FourPlayersScoreList(getActivity().getApplicationContext(), board);
@@ -112,7 +112,7 @@ public class FragmentScoreboardFour extends Fragment{
         fab.setVisibility(View.GONE);
     }
 
-    private List<Player> setPlayers(){
+    private ArrayList<Player> setPlayers(){
         Player player1 = new Player();
         Player player2 = new Player();
 
@@ -120,7 +120,7 @@ public class FragmentScoreboardFour extends Fragment{
         player2.setName(preferences.getString("TEAM2NAME","Team2"));
 
         player1.getName();
-        List<Player> players = new ArrayList<>();
+        ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
 

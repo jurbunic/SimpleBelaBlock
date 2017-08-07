@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.bunic.simplebelablock.R;
-import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
+import com.example.bunic.simplebelablock.scoreboard.Row;
+import com.example.bunic.simplebelablock.scoreboard.ScoreboardFour;
 
 /**
  * Created by bunic on 05.04.17..
@@ -16,7 +17,7 @@ import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
 
 public class FourPlayersScoreList extends RecyclerView.Adapter<FourPlayersScoreList.RowResults> {
     Context context;
-    FourPlayersScoreboard board;
+    ScoreboardFour board;
     String[] individualScores = new String[3];
 
     public static class RowResults extends RecyclerView.ViewHolder {
@@ -31,7 +32,7 @@ public class FourPlayersScoreList extends RecyclerView.Adapter<FourPlayersScoreL
 
     }
 
-    public FourPlayersScoreList(Context context, FourPlayersScoreboard board){
+    public FourPlayersScoreList(Context context, ScoreboardFour board){
         this.context = context;
         this.board = board;
     }
@@ -44,14 +45,13 @@ public class FourPlayersScoreList extends RecyclerView.Adapter<FourPlayersScoreL
 
     @Override
     public void onBindViewHolder(RowResults holder, int position) {
-        String row = board.getRow(position);
-        individualScores = row.split("\\$");
-        holder.mScorePlayer1.setText(individualScores[0]);
-        holder.mScorePlayer2.setText(individualScores[1]);
+        Row row = board.getRow(position);
+        holder.mScorePlayer1.setText(String.valueOf(row.getRowScores()[0]));
+        holder.mScorePlayer2.setText(String.valueOf(row.getRowScores()[1]));
     }
 
     @Override
     public int getItemCount() {
-        return board.listSize();
+        return board.getScoreListSize();
     }
 }

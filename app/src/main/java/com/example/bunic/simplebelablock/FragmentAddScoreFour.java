@@ -17,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Helpers.InputFilterMinMax;
-import com.example.bunic.simplebelablock.scoreboard.FourPlayersScoreboard;
+import com.example.bunic.simplebelablock.scoreboard.Row;
+import com.example.bunic.simplebelablock.scoreboard.ScoreboardFour;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ import butterknife.OnFocusChange;
 
 public class FragmentAddScoreFour extends Fragment {
     FragmentManager mFragmentManager;
-    FourPlayersScoreboard board;
+    ScoreboardFour board;
     Integer onTurn;
 
     @BindView(R.id.txt_player_1)
@@ -70,7 +71,7 @@ public class FragmentAddScoreFour extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        board = FourPlayersScoreboard.getInstance();
+        board = ScoreboardFour.getInstance();
         players = board.getPlayers();
         player1Name.setText(players.get(0).getName());
         player2Name.setText(players.get(1).getName());
@@ -81,7 +82,7 @@ public class FragmentAddScoreFour extends Fragment {
         super.onStart();
 
         mFragmentManager = getFragmentManager();
-        onTurn = board.listSize() % 2;
+        onTurn = board.getScoreListSize() % 2;
         if(onTurn == 0){
             player1Turn.setChecked(true);
         }else if (onTurn == 1){
@@ -113,7 +114,7 @@ public class FragmentAddScoreFour extends Fragment {
     public void onClickConfirm(){
         Integer score[] = new Integer[2];
         Integer calls[] = new Integer[2];
-
+        onTurn = player1Turn.isChecked() == true ? 1 : 2;
         if(scoreIsEmpty()){
             Toast.makeText(getActivity().getApplicationContext(), "Insert at least one score! ", Toast.LENGTH_SHORT).show();
             return;
@@ -136,8 +137,13 @@ public class FragmentAddScoreFour extends Fragment {
 
         calls[0] = Integer.parseInt(zvanje1.getText().toString());
         calls[1] = Integer.parseInt(zvanje2.getText().toString());
-
-        board.newRow(score,calls,onTurn);
+        Row row = new Row();
+        Integer[] scores = new Integer[2];
+        scores[0] = score[0]+calls[0];
+        scores[1] = score[1]+calls[1];
+        row.setRowScores(scores);
+        row.calculateRow(onTurn-1);
+        board.addRow(row);
         getActivity().getFragmentManager();
         refresh();
     }

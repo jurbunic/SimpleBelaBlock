@@ -11,30 +11,22 @@ import java.util.List;
  */
 
 public abstract class Scoreboard {
-    final Integer MAX_SCORE = 162;
-    String row;
-    List<String> allRows;
-    List<Player> players;
-    List<Integer> totalScore;
 
-    protected void initializePlayers(List<Player> players){
-        this.players = players;
-        this.allRows = new ArrayList<>();
+    protected List<Row> scoreList = new ArrayList<>();
+
+    public Row getRow(int index){
+        return scoreList.get(index);
     }
 
-    protected void addToScoreList(){
-        allRows.add(row);
+    public void addRow(Row row){
+        scoreList.add(row);
     }
 
-    public String getRow(int index){
-        return allRows.get(index);
+    public void deleteRow(int index){
+        scoreList.remove(index);
     }
 
-    public Integer listSize(){
-        return allRows.size();
-    }
-
-    public List<Player> getPlayers(){
-        return players;
+    public int getScoreListSize(){
+        return scoreList.size();
     }
 }

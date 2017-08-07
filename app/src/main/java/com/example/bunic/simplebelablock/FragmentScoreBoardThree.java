@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,18 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Adapters.ThreePlayersScoreList;
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
 import com.example.bunic.simplebelablock.scoreboard.Scoreboard;
-import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
+import com.example.bunic.simplebelablock.scoreboard.ScoreboardThree;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,10 +53,10 @@ public class FragmentScoreBoardThree extends Fragment {
 
     RecyclerView recyclerView;
     ThreePlayersScoreList mAdapter;
-    ThreePlayersScoreboard board;
+    ScoreboardThree board;
 
     SharedPreferences preferences;
-    List<Player> players;
+    ArrayList<Player> players;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,12 +85,12 @@ public class FragmentScoreBoardThree extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Bela Blok");
 
         if(board == null){
-            board = ThreePlayersScoreboard.getInstance(players);
+            board = ScoreboardThree.getInstance(players);
         }
 
-        totalScorePlayer1.setText(board.getTotalScore(0).toString());
-        totalScorePlayer2.setText(board.getTotalScore(1).toString());
-        totalScorePlayer3.setText(board.getTotalScore(2).toString());
+        totalScorePlayer1.setText(String.valueOf(board.getTotalScore()[0]));
+        totalScorePlayer2.setText(String.valueOf(board.getTotalScore()[1]));
+        totalScorePlayer3.setText(String.valueOf(board.getTotalScore()[2]));
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_three);
         mAdapter = new ThreePlayersScoreList(getActivity().getApplicationContext(), board);
@@ -123,7 +119,7 @@ public class FragmentScoreBoardThree extends Fragment {
         fab.setVisibility(View.GONE);
     }
 
-    private List<Player> setPlayers(){
+    private ArrayList<Player> setPlayers(){
         Player player1 = new Player();
         Player player2 = new Player();
         Player player3 = new Player();
@@ -132,11 +128,13 @@ public class FragmentScoreBoardThree extends Fragment {
         player2.setName(preferences.getString("PLAYER2NAME","player2"));
         player3.setName(preferences.getString("PLAYER3NAME","player3"));
 
-        List<Player> players = new ArrayList<>();
+        ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
         players.add(player3);
 
         return players;
     }
+
+    
 }

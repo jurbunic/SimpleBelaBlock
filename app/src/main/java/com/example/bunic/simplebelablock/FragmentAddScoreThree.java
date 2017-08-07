@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Helpers.InputFilterMinMax;
-import com.example.bunic.simplebelablock.scoreboard.ThreePlayersScoreboard;
+import com.example.bunic.simplebelablock.scoreboard.Row;
+import com.example.bunic.simplebelablock.scoreboard.ScoreboardThree;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ import butterknife.OnFocusChange;
 
 public class FragmentAddScoreThree extends Fragment {
     FragmentManager mFragmentManager;
-    ThreePlayersScoreboard board;
+    ScoreboardThree board;
     Integer onTurn;
 
     @BindView(R.id.txt_player_1)
@@ -77,7 +77,7 @@ public class FragmentAddScoreThree extends Fragment {
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        board = ThreePlayersScoreboard.getInstance();
+        board = ScoreboardThree.getInstance();
         players = board.getPlayers();
         player1Name.setText(players.get(0).getName());
         player2Name.setText(players.get(1).getName());
@@ -89,7 +89,7 @@ public class FragmentAddScoreThree extends Fragment {
         super.onStart();
 
         mFragmentManager = getFragmentManager();
-        onTurn = board.listSize() % 3;
+        onTurn = board.getScoreListSize() % 3;
         if(onTurn == 0){
             player1Turn.setChecked(true);
         }else if (onTurn == 1){
@@ -184,7 +184,21 @@ public class FragmentAddScoreThree extends Fragment {
         calls[1] = Integer.parseInt(zvanje2.getText().toString());
         calls[2] = Integer.parseInt(zvanje3.getText().toString());
 
-        board.newRow(score,calls,onTurn);
+        if(player1Turn.isChecked()){
+            onTurn=1;
+        }else if(player2Turn.isChecked()){
+            onTurn=2;
+        }else if(player3Turn.isChecked()){
+            onTurn=3;
+        }
+        Integer[] scores = new Integer[3];
+        scores[0] = score[0] + calls[0];
+        scores[1] = score[1] + calls[1];
+        scores[2] = score[2] + calls[2];
+        Row row = new Row();
+        row.setRowScores(scores);
+        row.calculateRow(onTurn-1);
+        board.addRow(row);
         getActivity().getFragmentManager();
         refresh();
     }
