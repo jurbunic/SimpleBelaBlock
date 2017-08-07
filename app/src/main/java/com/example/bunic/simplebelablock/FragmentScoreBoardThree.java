@@ -73,6 +73,7 @@ public class FragmentScoreBoardThree extends Fragment {
         player1Name.setText(players.get(0).getName());
         player2Name.setText(players.get(1).getName());
         player3Name.setText(players.get(2).getName());
+        MainActivity.fab = fab;
     }
 
     @Override
@@ -136,5 +137,5 @@ public class FragmentScoreBoardThree extends Fragment {
         return players;
     }
 
-    
+
 }

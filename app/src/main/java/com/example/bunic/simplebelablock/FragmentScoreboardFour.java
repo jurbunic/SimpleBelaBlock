@@ -66,6 +66,7 @@ public class FragmentScoreboardFour extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         player1Name.setText(players.get(0).getName());
         player2Name.setText(players.get(1).getName());
+        MainActivity.fab = fab;
     }
 
     @Override

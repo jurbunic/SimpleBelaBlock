@@ -3,10 +3,12 @@ package com.example.bunic.simplebelablock;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     private Toolbar toolbar;
     private FragmentManager mFragmentManager;
 
+    public static FloatingActionButton fab = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         super.onBackPressed();
         if(mFragmentManager.getBackStackEntryCount()<1){
             this.finish();
+        }
+        else{
+            try{
+                fab.setVisibility(View.VISIBLE);
+            }catch (NullPointerException e){
+                // This exception will be triggerd if back button is pressed before the scoreboard is opened
+            }
         }
     }
 
