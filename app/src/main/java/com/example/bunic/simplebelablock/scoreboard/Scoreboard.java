@@ -29,4 +29,10 @@ public abstract class Scoreboard {
     public int getScoreListSize(){
         return scoreList.size();
     }
+
+    public void clearList(){
+        scoreList.clear();
+    }
+
+    public abstract int[] getTotalScores();
 }

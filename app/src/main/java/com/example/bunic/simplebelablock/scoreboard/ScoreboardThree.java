@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ScoreboardThree extends Scoreboard {
     private static ScoreboardThree instance;
-    private static int MAX_SCORE = 700;
+    public static final int MAX_SCORE = 700;
     private List<Player> players;
     private int[] totalScore = new int[3];
 
@@ -50,17 +50,9 @@ public class ScoreboardThree extends Scoreboard {
         }
         super.deleteRow(index);
     }
-
-    public boolean checkVictoryCondition(){
-        for(int i=0;i<totalScore.length;i++){
-            if(totalScore[i]>MAX_SCORE){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int[] getTotalScore() {
+    
+    @Override
+    public int[] getTotalScores() {
         return totalScore;
     }
 

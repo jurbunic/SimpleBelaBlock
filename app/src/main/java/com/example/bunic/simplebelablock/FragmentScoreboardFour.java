@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Adapters.FourPlayersScoreList;
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
+import com.example.bunic.simplebelablock.scoreboard.ScoreboardControls;
 import com.example.bunic.simplebelablock.scoreboard.ScoreboardFour;
 
 import java.util.ArrayList;
@@ -46,6 +48,11 @@ public class FragmentScoreboardFour extends Fragment{
     TextView totalScorePlayer1;
     @BindView(R.id.txt_total_score_player2)
     TextView totalScorePlayer2;
+
+    @BindView(R.id.txt_total_points_player1)
+    TextView totalPointsPlayer1;
+    @BindView(R.id.txt_total_points_player2)
+    TextView totalPointsPlayer2;
 
     RecyclerView recyclerView;
     FourPlayersScoreList mAdapter;
@@ -83,8 +90,8 @@ public class FragmentScoreboardFour extends Fragment{
             board = ScoreboardFour.getInstance(players);
         }
 
-        totalScorePlayer1.setText(String.valueOf(board.getTotalScore()[0]));
-        totalScorePlayer2.setText(String.valueOf(board.getTotalScore()[1]));
+        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
+        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_four);
         mAdapter = new FourPlayersScoreList(getActivity().getApplicationContext(), board);
@@ -104,6 +111,24 @@ public class FragmentScoreboardFour extends Fragment{
         if(fab.getVisibility() == View.GONE){
             fab.setVisibility(View.VISIBLE);
         }
+        int roundResults = ScoreboardControls.checkVictoryCondition(1001, board.getTotalScores());
+        switch (roundResults){
+            case -1:
+                break;
+            case 0:
+                ScoreboardControls.addPointToPlayer(players.get(0),board);
+                Toast.makeText(getActivity().getApplicationContext(),"Player 1 has won the round", Toast.LENGTH_SHORT);
+                break;
+            case 1:
+                ScoreboardControls.addPointToPlayer(players.get(1),board);
+                Toast.makeText(getActivity().getApplicationContext(),"Player 2 has won the round", Toast.LENGTH_SHORT);
+                break;
+        }
+        totalPointsPlayer1.setText(String.valueOf(players.get(0).getPoints()));
+        totalPointsPlayer2.setText(String.valueOf(players.get(1).getPoints()));
+        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
+        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
+
     }
 
     @OnClick(R.id.fab_new_score)

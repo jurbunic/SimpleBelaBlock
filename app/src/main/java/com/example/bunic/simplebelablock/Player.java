@@ -11,6 +11,7 @@ import android.os.Parcelable;
 
 public class Player implements Parcelable{
     private String name;
+    private int points;
 
     public Player() {
     }
@@ -24,6 +25,12 @@ public class Player implements Parcelable{
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public int getPoints() {
+        return points;
+    }
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     //----------------------Parcel------------------------------------------
@@ -53,6 +60,8 @@ public class Player implements Parcelable{
 
     public Player(Parcel in){
         name = in.readString();
+        points = in.readInt();
  //       score = (Score) in.readParcelable(Score.class.getClassLoader());
     }
+
 }

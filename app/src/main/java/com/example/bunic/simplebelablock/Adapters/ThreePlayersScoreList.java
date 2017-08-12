@@ -18,7 +18,6 @@ import com.example.bunic.simplebelablock.scoreboard.ScoreboardThree;
 public class ThreePlayersScoreList extends RecyclerView.Adapter<ThreePlayersScoreList.RowResults>{
     Context context;
     ScoreboardThree board;
-    String[] individualScores = new String[3];
 
     public static class RowResults extends RecyclerView.ViewHolder {
         public TextView mScorePlayer1;

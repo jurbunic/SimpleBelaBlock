@@ -35,6 +35,32 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             >
+            <TableRow>
+                <TextView
+                    android:id="@+id/txt_total_points_player1"
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/txt_total_points_player2"
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/txt_total_points_player3"
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    />
+            </TableRow>
             <TableRow
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
