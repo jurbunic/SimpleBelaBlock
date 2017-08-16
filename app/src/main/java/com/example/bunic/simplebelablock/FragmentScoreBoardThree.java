@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,25 +17,22 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bunic.simplebelablock.Adapters.IDataChanged;
 import com.example.bunic.simplebelablock.Adapters.ThreePlayersScoreList;
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
-import com.example.bunic.simplebelablock.scoreboard.Scoreboard;
 import com.example.bunic.simplebelablock.scoreboard.ScoreboardControls;
-import com.example.bunic.simplebelablock.scoreboard.ScoreboardFour;
 import com.example.bunic.simplebelablock.scoreboard.ScoreboardThree;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 /**
  * Created by bunic on 3/29/17.
  */
 
-public class FragmentScoreBoardThree extends Fragment {
+public class FragmentScoreBoardThree extends Fragment implements IDataChanged {
     @BindView(R.id.fab_new_score)
     FloatingActionButton fab;
     @BindView(R.id.new_score_fragment_container)
@@ -74,7 +70,9 @@ public class FragmentScoreBoardThree extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scoreboard_three, container, false);
         ButterKnife.bind(this,view);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        players = setPlayers();
+        if(players == null){
+            players = setPlayers();
+        }
         return view;
     }
 
@@ -100,16 +98,10 @@ public class FragmentScoreBoardThree extends Fragment {
             board = ScoreboardThree.getInstance(players);
         }
 
-        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
-        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
-        totalScorePlayer3.setText(String.valueOf(board.getTotalScores()[2]));
-
-        totalPointsPlayer1.setText(String.valueOf(players.get(0).getPoints()));
-        totalPointsPlayer2.setText(String.valueOf(players.get(1).getPoints()));
-        totalPointsPlayer3.setText(String.valueOf(players.get(2).getPoints()));
+        readTotalScores();
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_three);
-        mAdapter = new ThreePlayersScoreList(getActivity().getApplicationContext(), board);
+        mAdapter = new ThreePlayersScoreList(getActivity().getApplicationContext(), board, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -143,12 +135,7 @@ public class FragmentScoreBoardThree extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),"Player 2 has won the round", Toast.LENGTH_SHORT);
                 break;
         }
-        totalPointsPlayer1.setText(String.valueOf(players.get(0).getPoints()));
-        totalPointsPlayer2.setText(String.valueOf(players.get(1).getPoints()));
-        totalPointsPlayer3.setText(String.valueOf(players.get(2).getPoints()));
-        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
-        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
-        totalScorePlayer3.setText(String.valueOf(board.getTotalScores()[2]));
+        readTotalScores();
     }
 
     @OnClick(R.id.fab_new_score)
@@ -175,5 +162,18 @@ public class FragmentScoreBoardThree extends Fragment {
         return players;
     }
 
+    @Override
+    public void dataChanged() {
+        Toast.makeText(getActivity().getApplicationContext(),"Izbrisan redak",Toast.LENGTH_SHORT).show();
+        readTotalScores();
+    }
 
+    public void readTotalScores(){
+        totalPointsPlayer1.setText(String.valueOf(players.get(0).getPoints()));
+        totalPointsPlayer2.setText(String.valueOf(players.get(1).getPoints()));
+        totalPointsPlayer3.setText(String.valueOf(players.get(2).getPoints()));
+        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
+        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
+        totalScorePlayer3.setText(String.valueOf(board.getTotalScores()[2]));
+    }
 }

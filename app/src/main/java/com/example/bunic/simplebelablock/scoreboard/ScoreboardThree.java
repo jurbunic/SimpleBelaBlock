@@ -2,7 +2,6 @@ package com.example.bunic.simplebelablock.scoreboard;
 
 import com.example.bunic.simplebelablock.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

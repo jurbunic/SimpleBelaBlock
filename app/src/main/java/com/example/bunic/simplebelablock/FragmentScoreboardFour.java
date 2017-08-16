@@ -18,12 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bunic.simplebelablock.Adapters.FourPlayersScoreList;
+import com.example.bunic.simplebelablock.Adapters.IDataChanged;
 import com.example.bunic.simplebelablock.Helpers.StartFragment;
 import com.example.bunic.simplebelablock.scoreboard.ScoreboardControls;
 import com.example.bunic.simplebelablock.scoreboard.ScoreboardFour;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +33,7 @@ import butterknife.OnClick;
  * Created by bunic on 05.04.17..
  */
 
-public class FragmentScoreboardFour extends Fragment{
+public class FragmentScoreboardFour extends Fragment implements IDataChanged{
     @BindView(R.id.fab_new_score)
     FloatingActionButton fab;
     @BindView(R.id.new_score_fragment_container)
@@ -64,7 +64,9 @@ public class FragmentScoreboardFour extends Fragment{
         View view = inflater.inflate(R.layout.fragment_scoreboard_four, container, false);
         ButterKnife.bind(this,view);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        players = setPlayers();
+        if(players == null){
+            players = setPlayers();
+        }
         return view;
     }
 
@@ -90,11 +92,10 @@ public class FragmentScoreboardFour extends Fragment{
             board = ScoreboardFour.getInstance(players);
         }
 
-        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
-        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
+        readTotalScores();
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.main_recycler_four);
-        mAdapter = new FourPlayersScoreList(getActivity().getApplicationContext(), board);
+        mAdapter = new FourPlayersScoreList(getActivity().getApplicationContext(), board, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -124,10 +125,7 @@ public class FragmentScoreboardFour extends Fragment{
                 Toast.makeText(getActivity().getApplicationContext(),"Player 2 has won the round", Toast.LENGTH_SHORT);
                 break;
         }
-        totalPointsPlayer1.setText(String.valueOf(players.get(0).getPoints()));
-        totalPointsPlayer2.setText(String.valueOf(players.get(1).getPoints()));
-        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
-        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
+        readTotalScores();
 
     }
 
@@ -151,5 +149,18 @@ public class FragmentScoreboardFour extends Fragment{
         players.add(player2);
 
         return players;
+    }
+
+    @Override
+    public void dataChanged() {
+        Toast.makeText(getActivity().getApplicationContext(),"Izbrisan redak",Toast.LENGTH_SHORT).show();
+        readTotalScores();
+    }
+
+    public void readTotalScores(){
+        totalPointsPlayer1.setText(String.valueOf(players.get(0).getPoints()));
+        totalPointsPlayer2.setText(String.valueOf(players.get(1).getPoints()));
+        totalScorePlayer1.setText(String.valueOf(board.getTotalScores()[0]));
+        totalScorePlayer2.setText(String.valueOf(board.getTotalScores()[1]));
     }
 }
